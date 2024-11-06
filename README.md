@@ -14,3 +14,9 @@ L’application devra etre capable :
 ### LES RESULTATS ATTENDUS:
 * Une application web
 * Un guide utilisateur pour l’application
+### NOM DES MEMBRES
+* DAKPOGAN VICTOIRE
+* GBOMENE MIREILLE
+* ESSOH LEWI JEAN MARC
+* KOUAKOU N'GUESSAN INGRID
+* KOFFI THIERRY LANDRY
