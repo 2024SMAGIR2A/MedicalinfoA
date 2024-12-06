@@ -1,0 +1,140 @@
+================== ETAPES A SUIVRE POUR EXECUTER LE PROJET EN LOCAL ==================
+
+1- creer la base de donnees projet_medical_db dans phpmyadmin
+
+2- configurer les accès à la base de données dans le fichier .ENV
+
+3- generer toutes les tables
+php artisan migrate
+
+4- charger les données démo
+php artisan db:seed
+
+5- demarrer le projet
+php artisan serve
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+> creer le projet laravel
+> creer la db
+> configurer la db dans le projet laravel
+> installer sanctum pour l'authentification
+composer require laravel/sanctum
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+php artisan migrate
+> creation de modele
+php artisan make:model Personne -m
+
+> Créer les sous-classes User, Patient, Medecin
+php artisan make:model User
+php artisan make:model Patient
+php artisan make:model Medecin
+
+php artisan make:migration create_patients_table
+php artisan make:migration create_medecins_table
+
+php artisan make:seeder PatientSeeder
+php artisan make:seeder MedecinSeeder
+php artisan db:seed
+php artisan db:seed --class=PatientSeeder
+php artisan db:seed --class=MedecinSeeder
+php artisan make:seeder AdminAndAssistantSeeder
+php artisan db:seed --class=AdminAndAssistantSeeder
+
+
+php artisan make:test RoleAssignmentTest
+php artisan test
+
+php artisan migrate:rollback --step=2
+php artisan migrate
+
+
+php artisan test
+php artisan migrate:refresh --seed
+
+composer require laravel/ui
+php artisan ui bootstrap --auth
+npm install && npm run dev
+
+
+php artisan make:controller AdminController
+php artisan make:controller AssistantController
+php artisan make:controller MedecinController
+php artisan make:controller PatientController
+
+
+mkdir -p resources/views/admin
+mkdir -p resources/views/assistant
+mkdir -p resources/views/medecin
+mkdir -p resources/views/patient
+
+php artisan make:seeder TestAccountsSeeder
+
+php artisan db:seed --class=TestAccountsSeeder
+
+
+php artisan migrate:rollback  # Annule la dernière migration
+php artisan migrate          # Exécute à nouveau les migrations
+php artisan db:seed --class=TestAccountsSeeder  # Exécute le seeder pour créer les utilisateurs
+
+php artisan migrate:fresh
+php artisan db:seed
+
+TESTS PEUPLER LES TABLES
+php artisan db:seed --class=RolePermissionSeeder
+php artisan db:seed --class=RolePermissionSeeder
+
+-----------------------------------------------------
+
+
+================== ETAPES A SUIVRE POUR EXECUTER LE PROJET EN LOCAL ==================
+1- creer la base de donnees projet_medical_db dans phpmyadmin
+
+2- configurer les accès à la base de données dans le fichier .ENV
+
+3- generer toutes les tables
+php artisan migrate
+
+4- charger les données démo
+php artisan db:seed
+
+5- demarrer le projet
+php artisan serve
+
+
+
+
+
+echo "# medical-info" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Devlewi/medical-info.git
+git push -u origin main

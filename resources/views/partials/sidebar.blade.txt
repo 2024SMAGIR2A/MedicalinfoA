@@ -1,0 +1,335 @@
+<aside class="main-sidebar shadow-sm" style="width: 250px; position: fixed; height: 100%; overflow-y: auto;">
+    <!-- Profil de l'utilisateur -->
+    <div class="user-panel text-center py-4 border-bottom">
+        <!--img src="{{ asset('assets/dist/img/avatar5.png') }}" class="img-circle mb-2" alt="User Image" style="width: 80px; height: 80px;"-->
+        <h5 class="mt-2">Bienvenue</h5>
+        <p>{{ Auth::user()->nom ?? 'Utilisateur' }}</p>
+        <p>
+            <label class="badge bg-light text-dark shadow-sm p-3 mb-2 rounded">
+                <b>{{ Auth::user()->type }}</b>
+              </label>
+
+        </p>
+    </div>
+
+    @if(Auth::user()->type == 'Administrateur')
+
+    <!-- Menu -->
+    <ul class="nav flex-column">
+        <!-- Administrateurs -->
+        <li class="nav-item">
+            <a href="#adminMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="adminMenu">
+                <i class="fa fa-user-shield me-2"></i> Administrateurs
+            </a>
+            <div class="collapse" id="adminMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Liste des administrateurs</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ajouter un administrateur</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Médécins -->
+        <li class="nav-item">
+            <a href="#medecinsMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="medecinsMenu">
+                <i class="fa fa-user-md me-2"></i> Médecins
+            </a>
+            <div class="collapse" id="medecinsMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Liste des médecins</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ajouter un médecin</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Assistantes Médicales -->
+        <li class="nav-item">
+            <a href="#assistantesMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="assistantesMenu">
+                <i class="fa fa-user-nurse me-2"></i> Assistantes Médicales
+            </a>
+            <div class="collapse" id="assistantesMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Liste des assistantes</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ajouter une assistante</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Patients -->
+        <li class="nav-item">
+            <a href="#patientsMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="patientsMenu">
+                <i class="fa fa-user me-2"></i> Patients
+            </a>
+            <div class="collapse" id="patientsMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Liste des patients</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ajouter un patient</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Centres de Santé -->
+        <li class="nav-item">
+            <a href="#centresMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="centresMenu">
+                <i class="fa fa-hospital me-2"></i> Centres de Santé
+            </a>
+            <div class="collapse" id="centresMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Liste des centres</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ajouter un centre</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Examens -->
+        <li class="nav-item">
+            <a href="#examensMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="examensMenu">
+                <i class="fa fa-flask me-2"></i> Examens
+            </a>
+            <div class="collapse" id="examensMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Liste des examens</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ajouter un examen</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Types d'Examens -->
+        <li class="nav-item">
+            <a href="#typesExamensMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="typesExamensMenu">
+                <i class="fa fa-cogs me-2"></i> Types d'Examens
+            </a>
+            <div class="collapse" id="typesExamensMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Liste des types</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ajouter un type</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Allergies -->
+        <li class="nav-item">
+            <a href="#allergiesMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="allergiesMenu">
+                <i class="fa fa-allergies me-2"></i> Allergies
+            </a>
+            <div class="collapse" id="allergiesMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Liste des allergies</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ajouter une allergie</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Traitements -->
+        <li class="nav-item">
+            <a href="#traitementsMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="traitementsMenu">
+                <i class="fa fa-pills me-2"></i> Traitements
+            </a>
+            <div class="collapse" id="traitementsMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Liste des traitements</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ajouter un traitement</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Factures -->
+        <li class="nav-item">
+            <a href="#facturesMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="facturesMenu">
+                <i class="fa fa-file-invoice-dollar me-2"></i> Factures
+            </a>
+            <div class="collapse" id="facturesMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Liste des factures</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ajouter une facture</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    @endif
+
+
+
+    @if(Auth::user()->type == 'Patient')
+
+    <!-- Menu Patient -->
+    <ul class="nav flex-column">
+        <!-- Mes Rendez-vous -->
+        <li class="nav-item">
+            <a href="#rendezvousMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="rendezvousMenu">
+                <i class="fa fa-calendar-check me-2"></i> Mes Rendez-vous
+            </a>
+            <div class="collapse" id="rendezvousMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Voir mes rendez-vous</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Prendre un rendez-vous</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Mes Bilans de Santé -->
+        <li class="nav-item">
+            <a href="#bilansMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="bilansMenu">
+                <i class="fa fa-file-medical me-2"></i> Mes Bilans de Santé
+            </a>
+            <div class="collapse" id="bilansMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Consulter mes bilans</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Allergies -->
+        <li class="nav-item">
+            <a href="#allergiesMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="allergiesMenu">
+                <i class="fa fa-allergies me-2"></i> Allergies
+            </a>
+            <div class="collapse" id="allergiesMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Voir mes allergies</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Mes Traitements -->
+        <li class="nav-item">
+            <a href="#traitementsMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="traitementsMenu">
+                <i class="fa fa-pills me-2"></i> Mes Traitements
+            </a>
+            <div class="collapse" id="traitementsMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Voir mes traitements</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Consulter Dossier Médical -->
+        <li class="nav-item">
+            <a href="" class="nav-link dropdown-toggl" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="dossierMenu">
+                <i class="fa fa-folder me-2"></i> Mon Dossier Médical
+            </a>
+
+        </li>
+    </ul>
+
+    @endif
+
+
+    @if(Auth::user()->type == 'AssistanteMedicale')
+
+    <!-- Menu -->
+    <ul class="nav flex-column">
+        <!-- Rendez-vous -->
+        <li class="nav-item">
+            <a href="#rdvMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="rdvMenu">
+                <i class="fa fa-calendar-check me-2"></i> Gérer Rendez-vous
+            </a>
+            <div class="collapse" id="rdvMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Rendez-vous annulés</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Rendez-vous reportés</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Rendez-vous confirmés</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Emploi du temps Médecin -->
+        <li class="nav-item">
+            <a href="#emploiTempsMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="emploiTempsMenu">
+                <i class="fa fa-clock me-2"></i> Emploi du temps
+            </a>
+            <div class="collapse" id="emploiTempsMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Voir l'emploi du temps</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Modifier l'emploi du temps</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    @endif
+
+
+    @if(Auth::user()->type == 'Medecin')
+    <!-- Menu Médecin -->
+    <ul class="nav flex-column">
+        <!-- Emploi du Temps -->
+        <li class="nav-item">
+            <a href="#emploiTempsMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="emploiTempsMenu">
+                <i class="fa fa-calendar me-2"></i> Mon Emploi du Temps
+            </a>
+            <div class="collapse" id="emploiTempsMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Voir mon emploi du temps</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ajouter un créneau</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Mes Patients -->
+        <li class="nav-item">
+            <a href="#patientsMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="patientsMenu">
+                <i class="fa fa-users me-2"></i> Mes Patients
+            </a>
+            <div class="collapse" id="patientsMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Voir mes patients</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ajouter un patient</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Mes Rendez-Vous -->
+        <li class="nav-item">
+            <a href="#rendezvousMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="rendezvousMenu">
+                <i class="fa fa-calendar-check me-2"></i> Mes Rendez-Vous
+            </a>
+            <div class="collapse" id="rendezvousMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Voir mes rendez-vous</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Confirmer un rendez-vous</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Centre de Santé -->
+        <li class="nav-item">
+            <a href="#centreSanteMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="centreSanteMenu">
+                <i class="fa fa-hospital me-2"></i> Centre de Santé
+            </a>
+            <div class="collapse" id="centreSanteMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Voir mon centre</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Gérer les consultations</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Consultations -->
+        <li class="nav-item">
+            <a href="#consultationsMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="consultationsMenu">
+                <i class="fa fa-stethoscope me-2"></i> Consultations
+            </a>
+            <div class="collapse" id="consultationsMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Voir mes consultations</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ajouter une consultation</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Traitements -->
+        <li class="nav-item">
+            <a href="#traitementsMenu" class="nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="traitementsMenu">
+                <i class="fa fa-pills me-2"></i> Traitements
+            </a>
+            <div class="collapse" id="traitementsMenu">
+                <ul class="nav flex-column ps-3">
+                    <li class="nav-item"><a href="#" class="nav-link">Voir les traitements prescrits</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Ajouter un traitement</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+@endif
+
+</aside>
