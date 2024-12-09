@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    container_name: laravel-app
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8080:80"
+    environment:
+      - PHP_MAILER_HOST=smtp.mailtrap.io # Si vous avez besoin de configurer le mailer
+    depends_on:
+      - db
+    networks:
+      - laravel-net
+
+  db:
+    image: mysql:8
+    container_name: laravel-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: projet_medical_db
+      MYSQL_USER: laraveluser
+      MYSQL_PASSWORD: laravelpass
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - laravel-net
+
+networks:
+  laravel-net:
+    driver: bridge
+
+volumes:
+  db_data:
