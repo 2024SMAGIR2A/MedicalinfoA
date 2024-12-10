@@ -308,7 +308,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="BHD_4qkbP_P3QfkmLgCT-15" value="EXAMEN" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="320" y="520" width="140" height="112" as="geometry">
+          <mxGeometry x="273" y="520" width="140" height="112" as="geometry">
             <mxRectangle x="340" y="380" width="170" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
