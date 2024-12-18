@@ -12,7 +12,7 @@
                         <i class="pe-7s-unlock"></i>
                     </div>
                     <div class="header-title">
-                        <h3>MEDICAL INFO 1.0</h3>
+                        <h3>MEDICAL INFO 1.0 DEMO</h3>
                         <small><strong>Veuillez entrer vos identifiants pour vous connecter.</strong></small>
                     </div>
                 </div>
