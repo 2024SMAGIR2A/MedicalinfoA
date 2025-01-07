@@ -26,5 +26,5 @@ L’application devra etre capable :
 - [Accès médical info](https://weddapp.ci/medicalInfo/ACCES%20MEDICAL%20INFO.pdf)
 - [Récupérer projet médical info](https://weddapp.ci/medicalInfo/RECUPERER%20PROJET%20MEDICAL%20INFO%20(1).pdf)
   
-=======
+
 
