@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ### LIBELLE DU THEME:
 Application web permettant de suivre votre dossier médical indépendamment des prestataires de soins médicaux
 ### PROBLEMATIQUE :
