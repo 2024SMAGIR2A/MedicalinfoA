@@ -13,6 +13,7 @@ class CreateAdministrateursTable extends Migration
         Schema::create('administrateurs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('personne_id');
+            $table->string('matricule')->nullable()->unique(); // Matricule unique et nullable
             $table->foreign('personne_id')->references('id')->on('personnes')->onDelete('cascade');
             $table->timestamps();
         });

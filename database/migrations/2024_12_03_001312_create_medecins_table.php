@@ -11,6 +11,7 @@ class CreateMedecinsTable extends Migration
         Schema::create('medecins', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('personne_id'); // Clé étrangère obligatoire
+            $table->string('matricule')->nullable()->unique(); // Matricule unique et nullable
             $table->foreign('personne_id')->references('id')->on('personnes')->onDelete('cascade');
             $table->string('specialite');
             $table->timestamps();

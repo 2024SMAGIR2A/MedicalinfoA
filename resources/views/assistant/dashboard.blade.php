@@ -1,39 +1,81 @@
 @extends('layouts.app')
 
+
+
+
+
 @section('content')
-<br/><br/>
-<div class="container mt-5">
-    <h1 class="text-center mb-4 display-4" style="font-size:30px;color:#4a5568;">
-        <i class="fa fa-user-nurse me-2"></i>Tableau de bord Assistante Médicale
-    </h1>
-    <p class="text-center text-muted mb-5">
-        Bienvenue dans votre espace de gestion. Gérez efficacement les rendez-vous et les informations des patients.
-    </p>
 
-    <div class="row g-4">
-        @php
-            $cards = [
-                ['icon' => 'fas fa-calendar-check ', 'title' => 'Gestion des Rendez-vous', 'description' => 'Planifiez, modifiez ou annulez les rendez-vous des patients.', 'link' => '#', 'button' => 'Gérer les Rendez-vous'],
-                ['icon' => 'fas fa-user-md', 'title' => 'Historique des Consultations', 'description' => 'Consultez les informations et les historiques médicaux des patients.', 'link' => '#', 'button' => 'Voir Historique'],
-                ['icon' => 'fas fa-calendar-alt', 'title' => 'Organisation de l\'Agenda', 'description' => 'Gérez votre emploi du temps pour optimiser votre efficacité.', 'link' => '#', 'button' => 'Organiser l\'Agenda'],
-            ];
-        @endphp
 
-        @foreach ($cards as $card)
-        <div class="col-md-3">
-            <a href="" style="text-decoration: none;">
-            <div class="card border-0 shadow-lg h-100 bg-light">
-                <div class="card-body text-center">
-                    <div class="icon-container mb-3">
-                        <i class="fa {{ $card['icon'] }}" style="font-size: 2.5rem; color:#546a9a;"></i>
-                    </div>
-                    <h5 class="card-title fw-bold text-dark" style="color:#08193e;font-size:17px;">{{ $card['title'] }}</h5>
-                    <p class="card-text text-muted" style="font-size: 15px;">{{ $card['description'] }}</p>
+
+    <!-- En-tête de contenu -->
+    <section class="content-header">
+        <form action="#" method="get" class="sidebar-form search-box pull-right hidden-md hidden-lg hidden-sm">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Rechercher...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn"><i
+                            class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </form>
+        <div class="header-icon">
+            <i class="fa fa-tachometer"></i>
+        </div>
+        <div class="header-title">
+            <h1> Tableau de bord</h1>
+            <small> Fonctionnalités du tableau de bord</small>
+
+        </div>
+    </section>
+    <!-- Contenu principal -->
+    <section class="content">
+
+
+
+    <!-- Contrôle pour les AssistanteMedicales -->
+@if(Auth::user()->type == 'AssistanteMedicale')
+<div class="row">
+    <!-- Médecins : Consultations -->
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+        <div class="panel panel-bd cardbox">
+            <div class="panel-body">
+                <div class="statistic-box">
+                    <h2><span class="count-number">120</span></h2>
+                </div>
+                <div class="items pull-left">
+                    <i class="fa fa-stethoscope fa-2x"></i>
+                    <h4>Rendez-vous</h4>
                 </div>
             </div>
-            </a>
         </div>
-        @endforeach
     </div>
+
+    <!-- Médecins : Patients -->
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+        <div class="panel panel-bd cardbox">
+            <div class="panel-body">
+                <div class="statistic-box">
+                    <h2><span class="count-number">300</span></h2>
+                </div>
+                <div class="items pull-left">
+                    <i class="fa fa-users fa-2x"></i>
+                    <h4>Factures</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
+@endif
+
+
+
+
+
+    </section>
+
+
+
 @endsection

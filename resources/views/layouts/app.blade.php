@@ -6,6 +6,7 @@
 
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="{{ asset('assets/dist/img/ico/favicon.png') }}" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Start Global Mandatory Style -->
     <link href="{{ asset('assets/plugins/jquery-ui-1.12.1/jquery-ui.min.css') }}" rel="stylesheet" type="text/css" />
@@ -26,6 +27,17 @@
     <!-- Start Theme Layout Style -->
     <link href="{{ asset('assets/dist/css/stylehealth.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- End Theme Layout Style -->
+
+
+
+    <style>
+        .label-warning {
+            color: #0b0b0b !important;
+            background-color: #ffc751;
+            border: 2px solid #ffc751;
+        }
+            </style>
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -105,9 +117,16 @@
             </nav>
         </header>
 
-        @include('partials.resume')
-        @include('partials.aside')
-        {{-- @yield('content') --}}
+
+@include('partials.aside')
+
+<div class="content-wrapper">
+    @yield('content')
+</div>
+
+
+
+
 
         <footer class="main-footer">
             <div class="pull-right hidden-xs"> <b>Version</b> 1.0</div>
@@ -128,9 +147,11 @@
     <script src="{{ asset('assets/plugins/slimScroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/plugins/fastclick/fastclick.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/dist/js/custom1.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/dist/js/custom.js') }}" type="text/javascript"></script>
 
     <script>
-        "use strict"; // Start of use strict
+   /*
+   "use strict"; // Start of use strict
         // notification
         setTimeout(function () {
             toastr.options = {
@@ -308,7 +329,7 @@
             }
         });
 
-
+*/
     </script>
 
     <!-- Start Page Level Plugins -->

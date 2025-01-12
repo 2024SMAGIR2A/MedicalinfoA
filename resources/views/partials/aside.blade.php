@@ -175,7 +175,7 @@
         <!-- Menu Médecin -->
         @if(Auth::user()->type == 'Medecin')
         <ul class="sidebar-menu">
-            <li class="active">
+            <li class="">
                 <a href=""><i class="fa fa-hospital-o"></i><span>Tableau de bord</span></a>
             </li>
 
@@ -227,6 +227,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
+                    <li><a href="{{ route('medecin.dossiers') }}">Dossiers Médicaux</a></li>
                     <li><a href="">Mes patients</a></li>
                     <!-- Sous-menus à ajouter ici si nécessaire -->
                 </ul>

@@ -5,7 +5,7 @@ services:
     build: .
     container_name: laravel-app
     volumes:
-      - .:/var/www/html
+        - .:/var/www/html:cached
     ports:
       - "8080:80"
     environment:

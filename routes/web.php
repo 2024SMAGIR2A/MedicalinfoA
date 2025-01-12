@@ -7,6 +7,7 @@ use App\Http\Controllers\MedecinController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\TraitementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
     //  le middleware verifie si le type de user est Medecin avant de lui permettre d'acceder a la route /medecin/dashboard sinon erreur 403
     Route::middleware(['auth', 'type:Medecin'])->group(function () {
         Route::get('/medecin/dashboard', [MedecinController::class, 'dashboard'])->name('medecin.dashboard');
+        Route::get('/medecin/dossiers', [MedecinController::class, 'viewDossiers'])->name('medecin.dossiers'); // Nouvelle route
     });
 
     //  le middleware verifie si le type de user est Patient avant de lui permettre d'acceder a la route /patient/dashboard sinon erreur 403

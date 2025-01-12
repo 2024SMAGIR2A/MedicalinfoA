@@ -95,8 +95,11 @@ mkdir -p resources/views/medecin
 mkdir -p resources/views/patient
 
 php artisan make:seeder TestAccountsSeeder
+php artisan make:seeder TestUsersSeeder
 
 php artisan db:seed --class=TestAccountsSeeder
+php artisan db:seed --class=TestUsersSeeder
+
 
 
 php artisan migrate:rollback  # Annule la dernière migration
@@ -114,6 +117,7 @@ php artisan db:seed --class=RolePermissionSeeder
 
 
 ================== ETAPES A SUIVRE POUR EXECUTER LE PROJET EN LOCAL ==================
+
 1- creer la base de donnees projet_medical_db dans phpmyadmin
 
 2- configurer les accès à la base de données dans le fichier .ENV
@@ -138,3 +142,137 @@ git commit -m "first commit"
 git branch -M main
 git remote add origin https://github.com/Devlewi/medical-info.git
 git push -u origin main
+
+
+
+
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS assistante_medicales, failed_jobs, migrations, password_reset_tokens, password_resets, personal_access_tokens, personnes, users;
+DROP TABLE IF EXISTS emploi_du_temps;
+DROP TABLE IF EXISTS migrations;
+SET FOREIGN_KEY_CHECKS = 1;
+php artisan migrate:reset
+DROP DATABASE projet_medical_db;
+CREATE DATABASE projet_medical_db;
+php artisan migrate
+
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS emploi_du_temps, migrations, examens, medecin_centre_de_sante;
+SET FOREIGN_KEY_CHECKS = 1;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- Supprimer toutes les tables existantes
+DROP TABLE IF EXISTS administrateurs,
+                   allergies,
+                   assistante_medicales,
+                   consultations,
+                   factures,
+                   failed_jobs,
+                   ligne_de_traitements,
+                   ligne_factures,
+                   medecins,
+                   model_has_permissions,
+                   model_has_roles,
+                   password_reset_tokens,
+                   password_resets,
+                   patient_allergies,
+                   patients,
+                   permissions,
+                   personal_access_tokens,
+                   personnes,
+                   role_has_permissions,
+                   role_permission,
+                   roles,
+                   traitements,
+                   type_examens,
+                   user_role,
+                   users;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+2025_01_07_145211_create_medecin_centre_de_santes_table.php
+
+
+
+
+grep -rl "class CreateCentreDeSanteTable" database/migrations
+composer dump-autoload
+
+
+
+
+
+
+
+mysql> show tables;
++-----------------------------+
+| Tables_in_projet_medical_db |
++-----------------------------+
+| administrateurs      OK        |
+| allergies        OK           |
+| assistante_medicales        |
+| centre_de_santes            |
+| consultations      OK         |
+| emploi_du_temps             |
+| examens                     |
+| factures                    |
+| failed_jobs                 |
+| ligne_de_traitements        |
+| ligne_factures              |
+| medecin_centre_de_sante     |
+| medecins                    |
+| migrations                  |
+| model_has_permissions       |
+| model_has_roles             |
+| password_reset_tokens       |
+| password_resets             |
+| patient_allergies    OK       |
+| patients          OK          |
+| permissions                 |
+| personal_access_tokens      |
+| personnes         OK          |
+| role_has_permissions        |
+| role_permission             |
+| roles                       |
+| traitements                 |
+| type_examens                |
+| user_role                   |
+| users                       |
++-----------------------------+
+30 rows in set (0.00 sec)
+
+
+php artisan make:seeder TestAccountsSeeder
+php artisan make:seeder TestUsersSeeder
+php artisan make:seeder AdditionalDataSeeder
+php artisan make:seeder ConsultationsTableSeeder
+php artisan make:seeder PatientAllergiesSeeder
+php artisan make:seeder FacturesSeeder
+php artisan make:seeder TraitementsSeeder
+php artisan make:seeder MedecinCentreDeSanteSeeder
+php artisan make:seeder EmploiDuTempsSeeder
+php artisan make:seeder ExamensSeeder
+
+php artisan db:seed --class=TestAccountsSeeder
+php artisan db:seed --class=TestUsersSeeder
+php artisan db:seed --class=AdditionalDataSeeder
+php artisan db:seed --class=ConsultationsTableSeeder
+php artisan db:seed --class=PatientAllergiesSeeder
+php artisan db:seed --class=FacturesSeeder
+php artisan db:seed --class=TraitementsSeeder
+php artisan db:seed --class=MedecinCentreDeSanteSeeder
+php artisan db:seed --class=EmploiDuTempsSeeder
+php artisan db:seed --class=ExamensSeeder
+
+delete from examens where id=21;
+delete from examens where id=22;
+delete from examens where id=23;
+delete from examens where id=24;
+delete from examens where id=25;
+delete from examens where id=26;
+delete from examens where id=27;
+delete from examens where id=28;
+delete from examens where id=29;
+delete from examens where id=30;

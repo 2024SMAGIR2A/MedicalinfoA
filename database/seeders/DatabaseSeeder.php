@@ -18,7 +18,12 @@ class DatabaseSeeder extends Seeder
         //MedecinSeeder::class,
         //PatientSeeder::class,
         RolePermissionSeeder::class,
-        TestAccountsSeeder::class
+        TestAccountsSeeder::class,
+        TestUsersSeeder::class,
+        AdditionalDataSeeder::class,
+        ConsultationsTableSeeder::class,
+        PatientAllergiesSeeder::class,
+        FacturesSeeder::class,
     ]);
 }
 

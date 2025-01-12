@@ -13,6 +13,7 @@ class CreateAssistanteMedicalesTable extends Migration
         Schema::create('assistante_medicales', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('personne_id');
+            $table->string('matricule')->nullable()->unique(); // Matricule unique et nullable
             $table->foreign('personne_id')->references('id')->on('personnes')->onDelete('cascade');
             $table->timestamps();
         });
@@ -20,6 +21,6 @@ class CreateAssistanteMedicalesTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('assistantes_medicalles');
+        Schema::dropIfExists('assistante_medicales');
     }
 }

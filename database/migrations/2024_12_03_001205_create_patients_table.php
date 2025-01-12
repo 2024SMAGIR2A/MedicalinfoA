@@ -11,8 +11,15 @@ class CreatePatientsTable extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->foreignId('personne_id')->constrained('personnes')->onDelete('cascade');
+            $table->string('matricule')->nullable()->unique(); // Matricule unique et nullable
+            $table->string('profession')->nullable();
+            $table->string('statut_matrimonial')->nullable(); // Célibataire, marié, divorcé, etc.
+            $table->string('serologie')->nullable();
             $table->string('groupe_sanguin')->nullable();
-            $table->string('adresse')->nullable();
+            $table->string('contact_urgence')->nullable(); // Contacts d'urgence en format JSON.
+            $table->string('date_naissance')->nullable(); // Date de naissance.
+            $table->string('ville')->nullable();
+            $table->string('quartier')->nullable();
             $table->timestamps();
         });
     }
