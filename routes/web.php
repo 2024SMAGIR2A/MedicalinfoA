@@ -52,8 +52,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/patients/{id}/allergies', [MedecinController::class, 'getPatientAllergies'])->name('patients.allergies');
         Route::get('/patients/{patientId}/traitements', [PatientController::class, 'getTraitements']);
         Route::get('/traitements/{traitementId}/lignes', [TraitementController::class, 'getLignesTraitement']);
-
-
+     
+        // ingrid
+        Route::get('/patients/{id}/consultations', [PatientController::class, 'getConsultations']);
+        
     });
 
     //  le middleware verifie si le type de user est Patient avant de lui permettre d'acceder a la route /patient/dashboard sinon erreur 403

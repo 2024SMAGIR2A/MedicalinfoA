@@ -193,7 +193,7 @@
             </li>
 
             <!-- Consultations -->
-            <li class="treeview">
+            <!--li class="treeview">
                 <a href="#">
                     <i class="fa fa-stethoscope"></i><span>Consultations</span>
                     <span class="pull-right-container">
@@ -201,9 +201,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <!-- Sous-menus à ajouter ici si nécessaire -->
                 </ul>
-            </li>
+            </li-->
 
             <!-- Traitements -->
             <li class="treeview">

@@ -39,9 +39,10 @@ class PatientController extends Controller
 
     public function getConsultations($id)
     {
+        // récupérer détails patients
     $patient = Patient::with('personne')->findOrFail($id);
 
-    // Récupérer les consultations avec le médecin associé
+    // Récupérer les consultations passées avec le médecin associé
     $consultations = Consultation::with('medecin.personne')
         ->where('patient_id', $id)
         ->where('status', "V")
