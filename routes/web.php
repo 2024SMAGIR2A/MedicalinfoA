@@ -48,6 +48,12 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['auth', 'type:Medecin'])->group(function () {
         Route::get('/medecin/dashboard', [MedecinController::class, 'dashboard'])->name('medecin.dashboard');
         Route::get('/medecin/dossiers', [MedecinController::class, 'viewDossiers'])->name('medecin.dossiers'); // Nouvelle route
+
+        Route::get('/patients/{id}/allergies', [MedecinController::class, 'getPatientAllergies'])->name('patients.allergies');
+        Route::get('/patients/{patientId}/traitements', [PatientController::class, 'getTraitements']);
+        Route::get('/traitements/{traitementId}/lignes', [TraitementController::class, 'getLignesTraitement']);
+
+
     });
 
     //  le middleware verifie si le type de user est Patient avant de lui permettre d'acceder a la route /patient/dashboard sinon erreur 403

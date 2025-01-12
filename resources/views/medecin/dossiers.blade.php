@@ -165,6 +165,207 @@
 </section> <!-- /.content -->
 
 
+<script>
+
+    // Fonction pour formater la date
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const day = ("0" + date.getDate()).slice(-2);  // Ajoute un 0 devant pour les jours < 10
+        const month = ("0" + (date.getMonth() + 1)).slice(-2);  // Mois commence à 0
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    function calculateDateDifference(date1, date2) {
+        // Convertir les dates du format DD/MM/YYYY en objets Date
+        const [day1, month1, year1] = date1.split('/').map(Number);
+        const [day2, month2, year2] = date2.split('/').map(Number);
+
+        const dateObj1 = new Date(year1, month1 - 1, day1); // Mois commence à 0
+        const dateObj2 = new Date(year2, month2 - 1, day2);
+
+        // Calculer la différence en millisecondes
+        const diffInMs = dateObj1 - dateObj2;
+
+        // Convertir en jours
+        const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+        return diffInDays;
+    }
+
+
+    $(document).ready(function () {
+
+        //AJAX POUR CHARGER LES ALLERGIES
+        console.log('erfref');
+        $('.btn-view-allergies').on('click', function () {
+            const patientId = $(this).data('id');
+
+            // Réinitialiser la modale
+            $('#patient-info').text('');
+            $('#allergies-table tbody').html('<tr><td colspan="7">Chargement...</td></tr>');
+
+            // Faire une requête AJAX pour obtenir les allergies
+            $.ajax({
+                url: `/patients/${patientId}/allergies`,
+                method: 'GET',
+                success: function (response) {
+                    // Mettre à jour les informations du patient
+                    $('#patient-info').text(
+                        `Patient : ${response.patient.nom} ${response.patient.prenom} (Matricule : ${response.patient.matricule})`
+                    );
+
+                    // Afficher les allergies
+                    console.log(response);
+                    if (response.allergies.length > 0) {
+                        let rows = '';
+                        response.allergies.forEach(allergie => {
+                            rows += `
+                                <tr>
+                                    <td>${allergie.name}</td>
+                                    <td>
+        <span class="label"
+              style="background-color:
+                ${allergie.niveauSeverite === 'Léger' ? 'green' :
+                (allergie.niveauSeverite === 'Modéré' ? 'orange' :
+                (allergie.niveauSeverite === 'Sévere' ? 'red' : 'gray'))}">
+            ${allergie.niveauSeverite}
+        </span>
+    </td>
+
+                                    <td><i class="fa fa-clock-o"></i> ${allergie.pivot.date_declaration ? formatDate(allergie.pivot.date_declaration) : 'Non spécifiée'}</td>
+                                    <td><i class="fa fa-user-md"></i> DR ${allergie.medecin_nom || 'Non spécifié'}</td>
+                                </tr>
+                            `;
+                        });
+                        $('#allergies-table tbody').html(rows);
+                    } else {
+                        $('#allergies-table tbody').html('<tr><td colspan="4">Aucune allergie trouvée.</td></tr>');
+                    }
+                },
+                error: function () {
+                    $('#allergies-table tbody').html('<tr><td colspan="7">Erreur lors du chargement des données.</td></tr>');
+                }
+            });
+        });
+
+
+        //AJAX POUR CHARGER LES TRAITEMENTS
+        $('.btn-view-traitements').on('click', function () {
+            const patientId = $(this).data('id');
+
+            // Réinitialiser la modale
+            $('#patient-info-traitement').text('');
+            $('#traitements-table tbody').html('<tr><td colspan="7">Chargement...</td></tr>');
+
+            // Faire une requête AJAX pour obtenir les traitements
+            $.ajax({
+                url: `/patients/${patientId}/traitements`,
+                method: 'GET',
+                success: function (response) {
+                    // Mettre à jour les informations du patient
+                    console.log(response);
+                    $('#patient-info-traitement').text(
+                        `Patient : ${response.patient.nom} ${response.patient.prenom} (Matricule : ${response.patient.matricule})`
+                    );
+
+                    // Afficher les traitements
+                    if (response.traitements.length > 0) {
+                        let rows = '';
+                        response.traitements.forEach(traitement => {
+                            rows += `
+                                <tr>
+                                    <td>${traitement.description}</td>
+                                    <td style="font-weight:bolder;font-size:15px;color:;">${traitement.duree} jours </td>
+                                    <td>${formatDate(traitement.datePrescription)}</td>
+                                    <td>
+        <span class="label"
+              style="background-color:
+                ${traitement.statut === 'Terminé' ? 'green' :
+                (traitement.statut === 'En cours' ? 'orange' : 'gray')}">
+            ${traitement.statut === 'En cours' ?
+                '<i class="fa fa-spinner fa-spin"></i> En cours' :
+                (traitement.statut === 'Terminé' ? 'Terminé' : 'Non spécifié')}
+        </span>
+    </td>
+    <td>
+    <a class="btn btn-success" id="btn-view-ligne" data-toggle="modal" data-target="#modal-lignes" data-id="${traitement.id}">
+        <i class="fa fa-eye"></i> Détails Traitement
+    </a>
+
+    </td>
+
+
+
+                                </tr>
+                            `;
+                        });
+                        $('#traitements-table tbody').html(rows);
+                    } else {
+                        $('#traitements-table tbody').html('<tr><td colspan="4">Aucun traitement administré pour le moment.</td></tr>');
+                    }
+                },
+                error: function () {
+                    $('#traitements-table tbody').html('<tr><td colspan="4">Erreur lors du chargement des données.</td></tr>');
+                }
+            });
+        });
+
+
+//ligne traitement
+ // Gestion des lignes de traitement
+ $(document).on('click', '#btn-view-ligne', function () {
+        const traitementId = $(this).data('id');
+
+        // Affichage d'un message de chargement
+        $('#lignes-table tbody').html('<tr><td colspan="4">Chargement des details...</td></tr>');
+
+        // Requête AJAX pour les lignes de traitement
+        $.ajax({
+            url: `/traitements/${traitementId}/lignes`,
+            method: 'GET',
+            success: function (response) {
+                if (response.lignes.length > 0) {
+                    let rows = '';
+                    response.lignes.forEach(ligne => {
+                        rows += `
+                            <tr>
+                                <td>${ligne.medicament}</td>
+                                <td>${ligne.dosage}</td>
+                                <td>${ligne.frequence}</td>
+                                <td>${ligne.instructions}</td>
+                            </tr>
+                        `;
+                    });
+                    $('#lignes-table tbody').html(rows);
+                } else {
+                    $('#lignes-table tbody').html('<tr><td colspan="4">Aucune ligne trouvée.</td></tr>');
+                }
+
+                // Affichage de la modale
+                $('#modal-lignes').modal('show');
+            },
+            error: function () {
+                $('#lignes-table tbody').html('<tr><td colspan="4">Erreur lors du chargement des détails...</td></tr>');
+            }
+        });
+        });
+
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+</script>
+
+
 <div id="alergies" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -197,6 +398,72 @@
     </div>
 </div>
 
+
+
+<!-- Modal pour les traitements -->
+<div id="modalTraitements" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="patient-info-traitement" style="font-size: 24px;">Détails des Traitements</h4>
+            </div>
+            <div class="modal-body">
+                <!--h5 id="" style="font-size: 22px;"></h5-->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" id="traitements-table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Durée</th>
+                                <th>Date de prescription</th>
+                                <th>Statut</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Les traitements seront chargés ici -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-lignes" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3 class="modal-title" id="patient-info-ligne"></h3>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" id="lignes-table">
+                        <thead>
+                            <tr>
+                                <th>MÉDICAMENT</th>
+                                <th>DOSE</th>
+                                <th>FRÉQUENCE</th>
+                                <th>INSTRUCTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Les lignes de traitement seront chargées ici -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="close-modal" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
