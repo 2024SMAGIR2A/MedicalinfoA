@@ -77,16 +77,18 @@
                             </div>
                             <div class="col-sm-4 col-xs-12">
                                 <div class="dataTables_length">
-                                    <div class="input-group custom-search-form">
-                                        <input type="search" class="form-control" placeholder="search..">
+                                    <form method="GET" action="{{ route('medecin.dossiers') }}" class="input-group custom-search-form">
+                                        <input type="search" name="search" class="form-control" placeholder="Rechercher par matricule..."
+                                               value="{{ request('search') }}">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="button">
+                                            <button class="btn btn-primary" type="submit">
                                                 <span class="glyphicon glyphicon-search"></span>
                                             </button>
                                         </span>
-                                    </div><!-- /input-group -->
+                                    </form>
                                 </div>
                             </div>
+
                         </div>
 
                     </div>
@@ -105,6 +107,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+
+                                @if ($patients->isEmpty())
+                                    <tr>
+                                        <td colspan="7" class="text-center">Aucun patient trouvé pour le matricule "{{ request('search') }}"</td>
+                                    </tr>
+                                @endif
+
                                 @foreach ($patients as $patient)
 
                                 <tr>
@@ -175,35 +184,35 @@
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
-    
+
     function calculateDateDifference(date1, date2) {
         // Convertir les dates du format DD/MM/YYYY en objets Date
         const [day1, month1, year1] = date1.split('/').map(Number);
         const [day2, month2, year2] = date2.split('/').map(Number);
-    
+
         const dateObj1 = new Date(year1, month1 - 1, day1); // Mois commence à 0
         const dateObj2 = new Date(year2, month2 - 1, day2);
-    
+
         // Calculer la différence en millisecondes
         const diffInMs = dateObj1 - dateObj2;
-    
+
         // Convertir en jours
         const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
         return diffInDays;
     }
-    
-    
+
+
     $(document).ready(function () {
-    
+
         //AJAX POUR CHARGER LES ALLERGIES
         console.log('erfref');
         $('.btn-view-allergies').on('click', function () {
             const patientId = $(this).data('id');
-    
+
             // Réinitialiser la modale
             $('#patient-info').text('');
             $('#allergies-table tbody').html('<tr><td colspan="7">Chargement...</td></tr>');
-    
+
             // Faire une requête AJAX pour obtenir les allergies
             $.ajax({
                 url: `/patients/${patientId}/allergies`,
@@ -213,7 +222,7 @@
                     $('#patient-info').text(
                         `Patient : ${response.patient.nom} ${response.patient.prenom} (Matricule : ${response.patient.matricule})`
                     );
-    
+
                     // Afficher les allergies
                     console.log(response);
                     if (response.allergies.length > 0) {
@@ -231,7 +240,7 @@
             ${allergie.niveauSeverite}
         </span>
     </td>
-    
+
                                     <td><i class="fa fa-clock-o"></i> ${allergie.pivot.date_declaration ? formatDate(allergie.pivot.date_declaration) : 'Non spécifiée'}</td>
                                     <td><i class="fa fa-user-md"></i> DR ${allergie.medecin_nom || 'Non spécifié'}</td>
                                 </tr>
@@ -247,16 +256,16 @@
                 }
             });
         });
-    
-    
+
+
         //AJAX POUR CHARGER LES TRAITEMENTS
         $('.btn-view-traitements').on('click', function () {
             const patientId = $(this).data('id');
-    
+
             // Réinitialiser la modale
             $('#patient-info-traitement').text('');
             $('#traitements-table tbody').html('<tr><td colspan="7">Chargement...</td></tr>');
-    
+
             // Faire une requête AJAX pour obtenir les traitements
             $.ajax({
                 url: `/patients/${patientId}/traitements`,
@@ -267,7 +276,7 @@
                     $('#patient-info-traitement').text(
                         `Patient : ${response.patient.nom} ${response.patient.prenom} (Matricule : ${response.patient.matricule})`
                     );
-    
+
                     // Afficher les traitements
                     if (response.traitements.length > 0) {
                         let rows = '';
@@ -291,11 +300,11 @@
     <a class="btn btn-success" id="btn-view-ligne" data-toggle="modal" data-target="#modal-lignes" data-id="${traitement.id}">
         <i class="fa fa-eye"></i> Détails Traitement
     </a>
-    
+
     </td>
-    
-    
-    
+
+
+
                                 </tr>
                             `;
                         });
@@ -309,16 +318,16 @@
                 }
             });
         });
-    
-    
+
+
         //AJAX POUR CHARGER LES CONSULTATIONS
         $('.btn-view-consultations').on('click', function () {
             const patientId = $(this).data('id');
-    
+
             // Réinitialiser la modale
             $('#patient-info-consultation').text('');
             $('#consultations-table tbody').html('<tr><td colspan="7">Chargement...</td></tr>');
-    
+
             // Faire une requête AJAX pour obtenir les consultations
             $.ajax({
                 url: `/patients/${patientId}/consultations`,
@@ -328,7 +337,7 @@
                     $('#patient-info-consultation').text(
                         `Patient : ${response.patient.nom} ${response.patient.prenom} (Matricule : ${response.patient.matricule})`
                     );
-    
+
                     // Afficher les consultations
                     if (response.consultations.length > 0) {
                         let rows = '';
@@ -336,13 +345,13 @@
                             const dateConsul = consultation.dateConsul;
                             const currentDate = formatDate(new Date()); // Date système formatée
                             const daysDifference = calculateDateDifference(currentDate, dateConsul);
-    
-    
+
+
                                                 // Déterminer le statut 2 basé sur la comparaison des dates
                         const statut2 = daysDifference > 0
                             ? '<span class="label label-success" style="background:gray;border:none;"><i class="fa fa-check"></i> déjà effectuée</span>'
                             : '<span class="label label-danger"><i class="fa fa-clock-o"></i> pas encore effectuée</span>';
-    
+
                             rows += `
                                 <tr>
                                     <td><i class="fa fa-clock-o"></i>${consultation.dateConsul}</td>
@@ -356,13 +365,13 @@
                 : '<i class="fa fa-check"></i> Validé'}
         </span>
     </td>
-    
-    
+
+
                                     <td> <i class="fa fa-user-md"></i> DR ${consultation.medecin_prenom} ${consultation.medecin_nom}</td>
                                     <td>${statut2}</td>
-    
-    
-    
+
+
+
                                 </tr>
                             `;
                         });
@@ -376,17 +385,17 @@
                 }
             });
         });
-    
-    
-    
+
+
+
     //ligne traitement
      // Gestion des lignes de traitement
      $(document).on('click', '#btn-view-ligne', function () {
             const traitementId = $(this).data('id');
-    
+
             // Affichage d'un message de chargement
             $('#lignes-table tbody').html('<tr><td colspan="4">Chargement des lignes...</td></tr>');
-    
+
             // Requête AJAX pour les lignes de traitement
             $.ajax({
                 url: `/traitements/${traitementId}/lignes`,
@@ -408,7 +417,7 @@
                     } else {
                         $('#lignes-table tbody').html('<tr><td colspan="4">Aucune ligne trouvée.</td></tr>');
                     }
-    
+
                     // Affichage de la modale
                     $('#modal-lignes').modal('show');
                 },
@@ -417,15 +426,15 @@
                 }
             });
             });
-    
-    
-    
+
+
+
     });
-    
-    
-    
-    
-    
+
+
+
+
+
     </script>
 
 <div id="alergies" class="modal fade" role="dialog">

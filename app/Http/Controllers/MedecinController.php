@@ -73,12 +73,20 @@ public function getTraitements($patientId)
     {
         // Nombre d'enregistrements par page
         $perPage = $request->get('per_page', 10); // Par défaut 10
-        // Récupérer les patients avec leurs relations (personne et allergies)
-        $patients = Patient::with(['personne', 'allergies'])->paginate($perPage);
 
+        // Récupérer le matricule recherché
+        $search = $request->get('search');
 
-        return view('medecin.dossiers', compact('patients'));
+        // Filtrer les patients si une recherche est effectuée
+        $patients = Patient::with(['personne', 'allergies'])
+            ->when($search, function ($query, $search) {
+                return $query->where('matricule', 'LIKE', "%{$search}%");
+            })
+            ->paginate($perPage);
+
+        return view('medecin.dossiers', compact('patients', 'search'));
     }
+
 
 
 
