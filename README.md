@@ -25,6 +25,7 @@ L’application devra etre capable :
 - [MLD-V4](https://weddapp.ci/medicalInfo/MLD-V4.pdf)
 - [Accès médical info](https://weddapp.ci/medicalInfo/ACCES%20MEDICAL%20INFO.pdf)
 - [Récupérer projet médical info](https://weddapp.ci/medicalInfo/RECUPERER%20PROJET%20MEDICAL%20INFO%20(1).pdf)
+- [SCHEMA BASE DE DONNEES projet médical info](https://weddapp.ci/medicalInfo/SCHEMA-DB.pdf)
   
 
 
